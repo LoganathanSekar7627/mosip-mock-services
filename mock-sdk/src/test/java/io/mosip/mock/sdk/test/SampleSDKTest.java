@@ -1,14 +1,19 @@
 package io.mosip.mock.sdk.test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.mosip.kernel.biometrics.constant.BiometricType;
-import io.mosip.kernel.biometrics.constant.Match;
-import io.mosip.kernel.biometrics.entities.*;
-import io.mosip.kernel.biometrics.model.Decision;
-import io.mosip.kernel.biometrics.model.MatchDecision;
-import io.mosip.kernel.biometrics.model.Response;
-import io.mosip.mock.sdk.impl.SampleSDK;
-import io.mosip.mock.sdk.utils.Util;
+import static java.lang.Integer.parseInt;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,17 +25,18 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import static java.lang.Integer.parseInt;
+import io.mosip.kernel.biometrics.constant.BiometricType;
+import io.mosip.kernel.biometrics.constant.Match;
+import io.mosip.kernel.biometrics.entities.BDBInfo;
+import io.mosip.kernel.biometrics.entities.BIR;
+import io.mosip.kernel.biometrics.entities.BiometricRecord;
+import io.mosip.kernel.biometrics.entities.VersionType;
+import io.mosip.kernel.biometrics.model.Decision;
+import io.mosip.kernel.biometrics.model.MatchDecision;
+import io.mosip.kernel.biometrics.model.Response;
+import io.mosip.mock.sdk.impl.SampleSDK;
 
 public class SampleSDKTest {
 
@@ -59,9 +65,9 @@ public class SampleSDKTest {
             }};
             BiometricRecord[] gallery = new BiometricRecord[1];
             BiometricRecord sample_record = xmlFileToBiometricRecord(samplePath);
-            BiometricRecord gallery0 = xmlFileToBiometricRecord(sampleIrisNoMatchPath);
+            BiometricRecord gallerOy0 = xmlFileToBiometricRecord(sampleIrisNoMatchPath);
 
-            gallery[0] = gallery0;
+            gallery[0] = gallerOy0;
 
             SampleSDK sampleSDK = new SampleSDK();
             Response<MatchDecision[]> response = sampleSDK.match(sample_record, gallery, modalitiesToMatch, new HashMap<>());
